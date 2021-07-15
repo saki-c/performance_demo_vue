@@ -39,12 +39,11 @@
     name: "Home",
     data() {
       return {
-        navList: [
-          {
+        navList: [{
             name: "/home",
             title: "首页",
-            icon: "el-icon-s-custom"
-          },{
+            icon: "el-icon-s-home"
+          }, {
             name: "/user",
             title: "用户列表",
             icon: "el-icon-s-custom"
@@ -107,6 +106,10 @@
     position: absolute;
     padding-top: 20px;
     font-size: 20px;
+  }
+
+  body {
+    margin: 0px;
   }
 
 </style>

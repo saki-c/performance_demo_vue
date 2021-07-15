@@ -26,7 +26,7 @@ export function userAdd(data) {
   })
 }
 
-//修改用户
+//修改密码
 export function userUpdate(data) {
   return request({
     url: '/user/update',
@@ -87,6 +87,15 @@ export function adminList() {
   })
 }
 
+//修改用户信息
+export function userRevise(data) {
+  return request({
+    url: '/user/revise',
+    method: 'post',
+    data
+  })
+}
+
 //管理员列表
 export function allAdminList() {
   return request({
@@ -99,6 +108,14 @@ export function allAdminList() {
 export function positionList() {
   return request({
     url: '/department/position/list',
+    method: 'get',
+  })
+}
+
+//获取账户信息
+export function userSelect() {
+  return request({
+    url: '/user/account',
     method: 'get',
   })
 }

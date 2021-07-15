@@ -13,9 +13,6 @@
           <el-col :span="2.5" v-if="$store.state.user.userStatus != 'user'">
             <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
           </el-col>
-          <el-col :span="2.5">
-            <el-button type="danger" @click="editDialogVisible = true">修改密码</el-button>
-          </el-col>
         </el-row>
       </el-col>
       <el-col :span="24">
@@ -123,7 +120,6 @@
   import {
     userList,
     userAdd,
-    userUpdate,
     userDelete,
     passwordReset,
     userPromote,
@@ -134,34 +130,6 @@
 
   export default {
     data() {
-      var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else if (value === this.editForm.oldPassword) {
-          callback(new Error('与原密码一致'));
-        } else {
-          if (this.editForm.againPassword !== '') {
-            this.$refs.editForm.validateField('againPassword');
-          }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.editForm.newPassword) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
-      var validatePass3 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入原密码'));
-        } else {
-          callback();
-        }
-      }
       return {
         pickerOptions: {
           disabledDate(time) {
@@ -191,20 +159,6 @@
           oldPassword: '',
           newPassword: '',
           againPassword: '',
-        },
-        rules: {
-          newPassword: [{
-            validator: validatePass,
-            trigger: 'blur'
-          }],
-          againPassword: [{
-            validator: validatePass2,
-            trigger: 'blur'
-          }],
-          oldPassword: [{
-            validator: validatePass3,
-            trigger: 'blur'
-          }]
         },
       };
     },
@@ -280,35 +234,6 @@
         this.$refs.userForm.resetFields();
       },
 
-      // 监听 修改用户状态
-      editDialogClosed() {
-        this.$refs.editForm.resetFields();
-      },
-      //修改密码
-      editUser() {
-        userUpdate(this.editForm)
-          .then((res) => {
-            if (res.data.resultCode === 200) {
-              this.editDialogVisible = false;
-              this.getUserList();
-              this.$message({
-                message: "修改密码成功",
-                type: "success",
-              });
-              this.$refs.editForm.resetFields();
-            } else if (res.data.resultCode === 401) {
-              this.$message.error(res.data.message);
-              window.sessionStorage.clear();
-              this.$router.push('/login');
-            } else {
-              this.$message.error(res.data.message);
-            }
-          })
-          .catch((err) => {
-            this.$message.error("修改密码异常");
-            console.loge(err);
-          });
-      },
       // 根据ID删除对应的用户信息
       async removeUserById(userId) {
         // 弹框 询问用户是否删除
@@ -460,8 +385,6 @@
       cancel() {
         this.addDialogVisible = false;
         this.$refs.userForm.resetFields();
-        this.editDialogVisible = false;
-        this.$refs.editForm.resetFields();
       },
       positionFocus() {
         const _this = this

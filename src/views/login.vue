@@ -55,7 +55,6 @@ export default {
           let data=res.data.data;
           let token=data.token;
           let user=data.user;
-          let position=data.position;
           //存储token
           _this.$store.commit('SET_TOKENN', token);
           //存储user
