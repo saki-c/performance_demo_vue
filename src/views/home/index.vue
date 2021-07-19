@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container" label-position="left" label-width="0px">
+  <div class="user-container" label-position="left" label-width="0px">
     <p>welcome,{{ user.userName }} </p>
     <p>昵称:{{ user.userNickname }} </p>
     <p>岗位:{{ user.positionName }}</p>
@@ -242,7 +242,7 @@
 
 </script>
 <style>
-  .login-container {
+  .user-container {
     border-radius: 15px;
     background-clip: padding-box;
     margin: 90px auto;

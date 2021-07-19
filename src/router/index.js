@@ -12,7 +12,7 @@ export default new Router({
   routes: [{
       path: '/',
       name: 'Default',
-      redirect: '/user',
+      redirect: '/home',
       component: Home
     },
     {
@@ -24,17 +24,17 @@ export default new Router({
         requireAuth: true
       },
       children: [{
-          path: '/user',
-          name: 'User',
-          component: () => import('@/views/user/index'),
+          path: '/home',
+          name: 'Home',
+          component: () => import('@/views/home/index'),
           meta: {
             requireAuth: true
           }
         },
         {
-          path: '/home',
-          name: 'Home',
-          component: () => import('@/views/home/index'),
+          path: '/user',
+          name: 'User',
+          component: () => import('@/views/user/index'),
           meta: {
             requireAuth: true
           }
@@ -47,7 +47,6 @@ export default new Router({
             requireAuth: true
           }
         },
-
         {
           path: '/performance',
           name: 'Performance',
